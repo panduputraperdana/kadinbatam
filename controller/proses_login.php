@@ -13,7 +13,7 @@
         $checking_password = password_verify($password, $getPassword);
 
         if(!$checking_password){
-            echo "<script> alert('Invalid user/password'); window.location.href = 'page/login.php';</script>";
+            echo "<script> alert('Invalid user/password'); window.location.href = '../page/login.php';</script>";
         } else { 
             $getUserData = $con->query("SELECT id, user_no, nama FROM `user` WHERE user_no = '$user_no'")->fetch_assoc();
     

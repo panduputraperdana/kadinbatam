@@ -1,19 +1,18 @@
 <?php include('../controller/akses.php'); ?>
 
+<?php include('../controller/config.php'); ?>
+
 <!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" href="kadinbatam.png">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../assets/datatables/datatables.css">
-    <link rel="stylesheet" href="../assets/datatables/datatables.min.css">
-    <link rel="stylesheet" href="../assets/datatables/dataTables.boostrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="shortcut icon" href="../assets/img/kadinbatam.png">
+    <link rel="stylesheet" href="../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
     <title>Data Usaha</title>
 </head>
 
@@ -25,7 +24,7 @@
 
     <div class="container" style="margin-top: 80px">
         <div class="row">
-            <div class="col-md-22">
+            <div class="col-md-32">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="text-left" style="float: left; margin-top: 10px;">Data Usaha</h5> <a href="home.php"
@@ -33,10 +32,18 @@
                     </div>
                     <div class="card-body">
                         <a href="../page/daftar.php" class="btn btn-md btn-success" style="margin-bottom: 10px">TAMBAH DATA</a>
-                        <form action="index.php" method="get">
-                       <input type="submit" value="Cari" style="float: right;">
-                        <input type="text" name="cari" style="float: right;">
-                        </form>
+                        <form action="datausaha.php" method="get" style="float: right;" autocomplete="off">
+	                    <label>Cari :</label>
+	                    <input type="text" name="cari">
+	                    <input type="submit" value="Cari">
+                         </form>
+                         
+                         <?php 
+                        if(isset($_GET['cari'])){
+	                    $cari = $_GET['cari'];
+                        }
+                        ?>
+
                         <table class="table table-bordered" id="myTable">
                             <thead>
                                 <tr>
@@ -64,12 +71,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                      include('../controller/config.php');
-                      $no = 1;
-                      $query = mysqli_query($con,"SELECT * FROM data_usaha");
-                      while($row = mysqli_fetch_array($query)){
-                    ?>
+        
+
+                            <?php 
+	                       if(isset($_GET['cari'])){
+		                    $cari = $_GET['cari'];
+		                    $query = mysqli_query($con,"SELECT * FROM data_usaha where nama_lengkap like '%".$cari."%'");			
+	                        }else{
+                            $query = mysqli_query($con,"SELECT * FROM data_usaha");		
+	                        }
+	                        $no = 1;
+	                         while($row = mysqli_fetch_array($query)){
+                            ?>
+
+                            
+
+
+
+
                                 <tr>
                                     <td><?php echo $no++ ?></td>
                                     <td><?php echo $row['nama_lengkap'] ?></td>
@@ -107,48 +126,26 @@
                             </tbody>
                         </table>
                     </div>
-                    <nav aria-label="...">
-  <ul class="pagination" style="float: right; margin-right: 14px;">
-    <li class="page-item">
-      <span class="page-link">Previous</span>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item active" aria-current="page">
-      <span class="page-link">
-        2
-        <span class="sr-only">(current)</span>
-      </span>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
                 </div>
             </div>
-                                        </div>
+        </div>
         <footer class="bg-light py-4">
             <div class="container">
                 <div class="small text-center text-muted" style="text-align: center;">Copyright © 2020 - Powered By
                     Ruang Kreasi</div>
             </div>
-        </footer>
+            </footer>
 
+        <script src="../assets/js/jquery.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
-    <script src="../assets/datatables/datatables.js"></script>
-    <script src="../assets/datatables/datatables.min.js"></script>
-    <script src="../assets/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="../assets/datatables/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready( function () {
-        $('#myTable').DataTable();
+        $('.myTable').DataTable();
         } );
     </script>
 </body>
 
-</html
+</html>

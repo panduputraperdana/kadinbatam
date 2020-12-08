@@ -57,7 +57,7 @@
                         <a class="dropdown-item" href="../page/change_password.php"
                             style="font-weight: bold; color: green; font-family: 'Sansita Swashed', cursive;">Change
                             Password</a>
-                        <a class="dropdown-item" href="../controller/logout.php"
+                        <a class="dropdown-item" onclick="return confirm('Apakah Anda Yakin Data Ingin Keluar?')" href="../controller/logout.php"
                             style="font-weight: bold; color: green; font-family: 'Sansita Swashed', cursive;;">Log
                             out</a>
                     </div>
