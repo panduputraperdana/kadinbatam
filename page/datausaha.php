@@ -2,6 +2,7 @@
 
 <?php include('../controller/config.php'); ?>
 
+
 <!doctype html>
 <html lang="en">
 
@@ -71,7 +72,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-        
+                             
+
 
                             <?php 
 	                       if(isset($_GET['cari'])){
@@ -83,12 +85,6 @@
 	                        $no = 1;
 	                         while($row = mysqli_fetch_array($query)){
                             ?>
-
-                            
-
-
-
-
                                 <tr>
                                     <td><?php echo $no++ ?></td>
                                     <td><?php echo $row['nama_lengkap'] ?></td>
