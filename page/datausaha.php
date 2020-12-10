@@ -3,6 +3,7 @@
 <?php include('../controller/config.php'); ?>
 
 
+
 <!doctype html>
 <html lang="en">
 
@@ -12,8 +13,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="shortcut icon" href="../assets/img/kadinbatam.png">
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    
     <title>Data Usaha</title>
 </head>
 
@@ -73,8 +74,6 @@
                             </thead>
                             <tbody>
                              
-
-
                             <?php 
 	                       if(isset($_GET['cari'])){
 		                    $cari = $_GET['cari'];
@@ -121,6 +120,14 @@
                                 <?php } ?>
                             </tbody>
                         </table>
+                        <hr />
+                        <ul class="pagination" style="float: right;">
+		  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+		  <li class="page-item"><a class="page-link" href="#">1</a></li>
+		  <li class="page-item"><a class="page-link" href="#">2</a></li>
+		  <li class="page-item"><a class="page-link" href="#">3</a></li>
+		  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+	</ul>
                     </div>
                 </div>
             </div>
@@ -134,13 +141,24 @@
 
         <script src="../assets/js/jquery.js"></script>
         <script src="../assets/js/bootstrap.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script src="../assets/js/jquery.dataTables.js"></script>
+        <script src="../assets/js/jquery.dataTables.min.js"></script>
+        <script
+			  src="http://code.jquery.com/jquery-1.12.4.min.js"
+			  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+			  crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+       
     <script>
-        $(document).ready( function () {
-        $('.myTable').DataTable();
-        } );
+        $.extend( true, $.fn.dataTable.defaults, {
+    "searching": false,
+    "ordering": false
+} );
+ 
+ 
+$(document).ready(function() {
+    $('#myTable').DataTable();
+} );;
     </script>
 </body>
 
