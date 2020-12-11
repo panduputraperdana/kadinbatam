@@ -26,7 +26,7 @@
 
     <div class="container" style="margin-top: 80px">
         <div class="row">
-            <div class="col-md-32">
+            <div class="col-lg-32">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="text-left" style="float: left; margin-top: 10px;">Data Usaha</h5> <a href="home.php"
@@ -45,6 +45,24 @@
 	                    $cari = $_GET['cari'];
                         }
                         ?>
+                         <?php 
+				$batas = 5;
+				$halaman = isset($_GET['halaman'])?(int)$_GET['halaman'] : 1;
+				$halaman_awal = ($halaman>1) ? ($halaman * $batas) - $batas : 0;	
+ 
+				$previous = $halaman - 1;
+				$next = $halaman + 1;
+				
+				$query = mysqli_query($con,"select * from data_usaha");
+				$jumlah_data = mysqli_num_rows($query);
+				$total_halaman = ceil($jumlah_data / $batas);
+ 
+				$data_usaha = mysqli_query($con,"select * from data_usaha limit $halaman_awal, $batas");
+				$nomor = $halaman_awal+1;
+				while($d = mysqli_fetch_array($data_usaha))
+					?>
+
+                
 
                         <table class="table table-bordered" id="myTable">
                             <thead>
@@ -73,7 +91,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                             
+                           
+                            
                             <?php 
 	                       if(isset($_GET['cari'])){
 		                    $cari = $_GET['cari'];
@@ -121,13 +140,23 @@
                             </tbody>
                         </table>
                         <hr />
-                        <ul class="pagination" style="float: right;">
-		  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-		  <li class="page-item"><a class="page-link" href="#">1</a></li>
-		  <li class="page-item"><a class="page-link" href="#">2</a></li>
-		  <li class="page-item"><a class="page-link" href="#">3</a></li>
-		  <li class="page-item"><a class="page-link" href="#">Next</a></li>
-	</ul>
+                        <nav>
+			<ul class="pagination justify-content-end">
+				<li class="page-item">
+					<a class="page-link" <?php if($halaman > 5){ echo "href='?halaman=$Previous'"; } ?>>Previous</a>
+				</li>
+				<?php 
+				for($x=1;$x<=$total_halaman;$x++){
+					?> 
+					<li class="page-item"><a class="page-link" href="?halaman=<?php echo $x ?>"><?php echo $x; ?></a></li>
+					<?php
+				}
+				?>				
+				<li class="page-item">
+					<a  class="page-link" <?php if($halaman < $total_halaman) { echo "href='?halaman=$next'"; } ?>>Next</a>
+				</li>
+			</ul>
+		</nav>
                     </div>
                 </div>
             </div>
@@ -159,7 +188,7 @@
 $(document).ready(function() {
     $('#myTable').DataTable();
 } );;
-    </script>
+</script>
 </body>
 
 </html>
