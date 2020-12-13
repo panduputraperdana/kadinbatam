@@ -123,7 +123,7 @@
                                     <td><?php echo $row['account_instagram'] ?></td>
                                     <td><?php echo $row['badan_usaha'] ?></td>
                                     <td><?php echo $row['kategori_produk'] ?></td>
-                                    <td class="text-left">
+                                    <td class=text-left">
 
                                         <?php if($_SESSION["user"]["id"] === $row['id_user'])   {?> 
                                         <a href="editdata.php?id=<?php echo $row['id'] ?>"
