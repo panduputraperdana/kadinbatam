@@ -45,26 +45,7 @@
 	                    $cari = $_GET['cari'];
                         }
                         ?>
-                         <?php 
-				$batas = 5;
-				$halaman = isset($_GET['halaman'])?(int)$_GET['halaman'] : 1;
-				$halaman_awal = ($halaman>1) ? ($halaman * $batas) - $batas : 0;	
- 
-				$previous = $halaman - 1;
-				$next = $halaman + 1;
-				
-				$query = mysqli_query($con,"select * from data_usaha");
-				$jumlah_data = mysqli_num_rows($query);
-				$total_halaman = ceil($jumlah_data / $batas);
- 
-				$data_usaha = mysqli_query($con,"select * from data_usaha limit $halaman_awal, $batas");
-				$nomor = $halaman_awal+1;
-				while($d = mysqli_fetch_array($data_usaha))
-					?>
-
-                
-
-                        <table class="table table-bordered" id="myTable">
+                    <table class="table table-bordered" id="myTable">
                             <thead>
                                 <tr>
                                     <th width= scope="col">NO.</th>
@@ -103,6 +84,8 @@
 	                        $no = 1;
 	                         while($row = mysqli_fetch_array($query)){
                             ?>
+                            
+
                                 <tr>
                                     <td><?php echo $no++ ?></td>
                                     <td><?php echo $row['nama_lengkap'] ?></td>
@@ -140,23 +123,7 @@
                             </tbody>
                         </table>
                         <hr />
-                        <nav>
-			<ul class="pagination justify-content-end">
-				<li class="page-item">
-					<a class="page-link" <?php if($halaman > 5){ echo "href='?halaman=$Previous'"; } ?>>Previous</a>
-				</li>
-				<?php 
-				for($x=1;$x<=$total_halaman;$x++){
-					?> 
-					<li class="page-item"><a class="page-link" href="?halaman=<?php echo $x ?>"><?php echo $x; ?></a></li>
-					<?php
-				}
-				?>				
-				<li class="page-item">
-					<a  class="page-link" <?php if($halaman < $total_halaman) { echo "href='?halaman=$next'"; } ?>>Next</a>
-				</li>
-			</ul>
-		</nav>
+                     </div>
                     </div>
                 </div>
             </div>
@@ -170,8 +137,6 @@
 
         <script src="../assets/js/jquery.js"></script>
         <script src="../assets/js/bootstrap.min.js"></script>
-        <script src="../assets/js/jquery.dataTables.js"></script>
-        <script src="../assets/js/jquery.dataTables.min.js"></script>
         <script
 			  src="http://code.jquery.com/jquery-1.12.4.min.js"
 			  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
@@ -187,7 +152,7 @@
  
 $(document).ready(function() {
     $('#myTable').DataTable();
-} );;
+} );
 </script>
 </body>
 
