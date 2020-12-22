@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="shortcut icon" href="../assets/img/kadinbatam.png">
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     
     <title>Data Usaha</title>
 </head>
@@ -39,16 +39,18 @@
 	                    <input type="text" name="cari">
 	                    <input type="submit" value="Cari">
                          </form>
-                         
+
                          <?php 
                         if(isset($_GET['cari'])){
 	                    $cari = $_GET['cari'];
                         }
                         ?>
-                    <table class="table table-bordered" id="myTable">
+                        <div class="table-responsive">
+                        <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th width= scope="col">NO.</th>
+                          
+                                    <th scope="col">NO.</th>
                                     <th scope="col">Nama Lengkap</th>
                                     <th scope="col">No Anggota</th>
                                     <th scope="col">Jenis Kelamin</th>
@@ -59,7 +61,7 @@
                                     <th scope="col">Tahun Berdiri</th>
                                     <th scope="col">Kondisi Usaha</th>
                                     <th scope="col">Alamat Usaha</th>
-                                    <th scope="col">Npwp</th>
+                                    <th scope="col">NPWP</th>
                                     <th width="45%" scope="col">No Hp</th>
                                     <th scope="col">Alamat Email</th>
                                     <th scope="col">Alamat Website</th>
@@ -68,7 +70,6 @@
                                     <th scope="col">Badan Usaha</th>
                                     <th scope="col">Produk</th>
                                     <th colspan="2" scope="colgroup" style="text-align: center;">AKSI</th>
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -85,6 +86,22 @@
 	                         while($row = mysqli_fetch_array($query)){
                             ?>
                             
+                            <?php
+    
+    $page = (isset($_GET['page']))? (int) $_GET['page'] : 1;
+    
+    // Jumlah data per halaman
+    $limit = 15;
+
+    $limitStart = ($page - 1) * $limit;
+              
+    $query = mysqli_query($con, "SELECT * FROM data_usaha LIMIT ".$limitStart.",".$limit);
+    
+    $no = $limitStart + 1;
+    
+    while($row = mysqli_fetch_array($query)){ 
+    ?>
+
 
                                 <tr>
                                     <td><?php echo $no++ ?></td>
@@ -107,7 +124,6 @@
                                     <td><?php echo $row['badan_usaha'] ?></td>
                                     <td><?php echo $row['kategori_produk'] ?></td>
                                     <td class=text-left">
-
                                         <?php if($_SESSION["user"]["id"] === $row['id_user'])   {?> 
                                         <a href="editdata.php?id=<?php echo $row['id'] ?>"
                                             class="btn btn-sm btn-primary">EDIT</a></td>
@@ -118,42 +134,71 @@
                                              HAPUS</td>
                                         <?php };?>
                                 </tr>
-
+                                <?php  
+                }
+            ?>
                                 <?php } ?>
                             </tbody>
                         </table>
-                        <hr />
-                     </div>
+                        </div>
+                        <hr>
+  <ul class="pagination">
+    <?php
+    if($page == 1){ 
+    ?>        
+      <li class="disabled"><a class="page-link" href="#">Previous</a></li>
+    <?php
+    }
+    else{ 
+      $LinkPrev = ($page > 1)? $page - 1 : 1;
+    ?>
+      <li class="page-item"><a class="page-link" href="datausaha.php?page=<?php echo $LinkPrev; ?>">Previous</a></li>
+    <?php
+      }
+    ?>
+    <?php
+    $query = mysqli_query($con, "SELECT * FROM data_usaha");        
+    $JumlahData = mysqli_num_rows($query);
+    $jumlahPage = ceil($JumlahData/$limit); 
+    $jumlahNumber = 1; 
+    $startNumber = ($page > $jumlahNumber)? $page - $jumlahNumber : 1; 
+    $endNumber = ($page < ($jumlahPage - $jumlahNumber))? $page + $jumlahNumber : $jumlahPage; 
+    for($i = $startNumber; $i <= $endNumber; $i++){
+      $linkActive = ($page == $i)? ' class="active"' : '';
+    ?>
+      <li class="page-item"?php echo $linkActive; ?><a class="page-link" href="datausaha.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+    <?php
+      }
+    ?>
+    
+    <?php       
+    if($page == $jumlahPage){ 
+    ?>
+      <li class="disabled"><a class="page-link" href="#">Next</a></li>
+    <?php
+    }
+    else{
+      $linkNext = ($page < $jumlahPage)? $page + 1 : $jumlahPage;
+    ?>
+      <li class="page-item"><a class="page-link" href="datausaha.php?page=<?php echo $linkNext; ?>">Next</a></li>
+    <?php
+    }
+    ?>
+  </ul>
                     </div>
                 </div>
             </div>
-        </div>
-        <footer class="bg-light py-4">
+</div>
+
+<footer class="bg-light py-4">
             <div class="container">
                 <div class="small text-center text-muted" style="text-align: center;">Copyright © 2020 - Powered By
                     Ruang Kreasi</div>
             </div>
-            </footer>
-
-        <script src="../assets/js/jquery.js"></script>
-        <script src="../assets/js/bootstrap.min.js"></script>
-        <script
-			  src="http://code.jquery.com/jquery-1.12.4.min.js"
-			  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-			  crossorigin="anonymous"></script>
-        <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-       
-    <script>
-        $.extend( true, $.fn.dataTable.defaults, {
-    "searching": false,
-    "ordering": false
-} );
- 
- 
-$(document).ready(function() {
-    $('#myTable').DataTable();
-} );
-</script>
+        </footer>
+        <script src="https://code.jquery.com/jquery-1.7.0.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </body>
 
 </html>
+
