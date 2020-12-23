@@ -219,11 +219,14 @@
                                             <option>Olahan Makanan/Minuman</option>
                                             <option>Perikanan</option>
                                             <option>Pertanian,perkebunan,kehutanan</option>
-                                            <option>Pertenakan</option>
+                                            <option>Perternakan</option>
                                             <option>Perdagangan</option>
                                             <option>Jasa</option>
                                             <option>Inovatif dan Kreatif</option>
-                                            <option>Lainnya</option>
+                                            <option>Teknologi</option>
+                                            <option>Otomotif</option>
+                                            <option>Event Organizer</option>
+                                            <option>Tour & Travel</option>
                                         </select>
                                     </div>
                                 </div>

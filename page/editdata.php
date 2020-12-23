@@ -272,8 +272,17 @@ while($row = mysqli_fetch_array($query)) {
                                             <option value="Inovatif dan Kreatif"
                                                 <?php if($row['kategori_produk'] == 'Inovatif dan Kreatif'){ echo 'selected'; } ?>>
                                                 Inovatif dan Kreatif</option>
-                                            <option value="Lainnya"
-                                                <?php if($row['kategori_produk'] == 'Lainnya'){ echo 'selected'; } ?>>Lainnya
+                                            <option value="Teknologi"
+                                                <?php if($row['kategori_produk'] == 'Teknologi'){ echo 'selected'; } ?>>Teknologi
+                                            </option>
+                                            <option value="Otomotif"
+                                                <?php if($row['kategori_produk'] == 'Otomotif'){ echo 'selected'; } ?>>Otomotif
+                                            </option>
+                                            <option value="Event Organizer"
+                                                <?php if($row['kategori_produk'] == 'Event Organizer'){ echo 'selected'; } ?>>Event Organizer
+                                            </option>
+                                            <option value="Tour & Travel"
+                                                <?php if($row['kategori_produk'] == 'Tour & Travel'){ echo 'selected'; } ?>>Tour & Travel
                                             </option>
                                         </select>
                                     </div>

@@ -6,7 +6,7 @@
 
 <title>Form Pendaftaran</title>
 
-<link rel="shortcut icon" href="../assets/css/kadinbatam.png">
+<link rel="shortcut icon" href="../assets/img/kadinbatam.png">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
 <link href="../assets/css/style.css" rel="stylesheet">
 
